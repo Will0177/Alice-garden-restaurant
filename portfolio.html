@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery — Alice Garden Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .font-playfair {
+            font-family: 'Playfair Display', serif !important;
+        }
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+        
+        /* Dynamic Island Navbar */
+        .nav-island {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 12px 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 90%;
+        }
+        .nav-island.scrolled {
+            top: 10px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 100%;
+            height: 2px;
+            background: #e11d48;
+            transition: transform 0.3s ease;
+        }
+        .nav-link:hover::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        .hover-scale {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        .image-hover {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .image-hover:hover {
+            transform: scale(1.08) translateY(-5px);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="antialiased text-rose-950 bg-rose-50/30" style="font-family: Inter, ui-sans-serif, system-ui;">
+
+    <!-- Dynamic Island Navigation -->
+    <nav id="navIsland" class="nav-island">
+        <div class="flex items-center gap-6">
+            <div class="text-xl font-playfair font-bold tracking-tight cursor-pointer text-rose-600 hover:text-rose-700 transition-colors hover-scale" onclick="window.location.href='index.html'" role="button">Alice Garden</div>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="index.html" class="nav-link text-sm font-medium text-neutral-700 hover:text-rose-600 transition-colors">Home</a>
+                <a href="about.html" class="nav-link text-sm font-medium text-neutral-700 hover:text-rose-600 transition-colors">About</a>
+                <a href="services.html" class="nav-link text-sm font-medium text-neutral-700 hover:text-rose-600 transition-colors">Services</a>
+                <a href="portfolio.html" class="nav-link text-sm font-medium text-rose-600 transition-colors">Gallery</a>
+                <a href="contact.html" class="nav-link text-sm font-medium text-neutral-700 hover:text-rose-600 transition-colors">Contact</a>
+            </div>
+            <button onclick="window.location.href='contact.html'" class="bg-rose-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-rose-700 transition-all duration-300 shadow-lg shadow-rose-200 hover:shadow-xl hover:shadow-rose-300 hover-scale">
+                Book a Table
+            </button>
+            <button id="mobileMenuBtn" class="md:hidden text-neutral-700 hover:text-rose-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden mt-4 pt-4 border-t border-rose-100">
+            <div class="flex flex-col gap-3">
+                <a href="index.html" class="nav-link text-sm font-medium text-neutral-700 hover:text-rose-600 transition-colors py-2">Home</a>
+                <a href="about.html" class="nav-link text-sm font-medium text-neutral-700 hover:text-rose-600 transition-colors py-2">About</a>
+                <a href="services.html" class="nav-link text-sm font-medium text-neutral-700 hover:text-rose-600 transition-colors py-2">Services</a>
+                <a href="portfolio.html" class="nav-link text-sm font-medium text-rose-600 transition-colors py-2">Gallery</a>
+                <a href="contact.html" class="nav-link text-sm font-medium text-neutral-700 hover:text-rose-600 transition-colors py-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-40 pb-20">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <h1 class="text-5xl md:text-7xl font-playfair font-bold text-rose-950 mb-6">Our Gallery</h1>
+                <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+                    A visual journey through our culinary creations and enchanting spaces.
+                </p>
+            </div>
+
+            <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+                <!-- Gallery Item 1 -->
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border-4 border-white shadow-lg fade-in-up hover-lift">
+                    <img src="assets/interior-1.jpg" alt="Interior Shot 1" class="w-full aspect-[3/4] object-cover image-hover">
+                </div>
+                <!-- Gallery Item 2 -->
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border-4 border-white shadow-lg fade-in-up hover-lift" style="transition-delay: 0.1s;">
+                    <img src="assets/dish-1.jpg" alt="Food Shot 1" class="w-full aspect-square object-cover image-hover">
+                </div>
+                <!-- Gallery Item 3 -->
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border-4 border-white shadow-lg fade-in-up hover-lift" style="transition-delay: 0.2s;">
+                    <img src="assets/dish-2.jpg" alt="Drink Shot 1" class="w-full aspect-[4/3] object-cover image-hover">
+                </div>
+                <!-- Gallery Item 4 -->
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border-4 border-white shadow-lg fade-in-up hover-lift" style="transition-delay: 0.3s;">
+                    <img src="assets/interior-2.jpg" alt="Event Shot 1" class="w-full aspect-[3/4] object-cover image-hover">
+                </div>
+                <!-- Gallery Item 5 -->
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border-4 border-white shadow-lg fade-in-up hover-lift" style="transition-delay: 0.4s;">
+                    <img src="assets/interior-3.jpg" alt="Interior Shot 2" class="w-full aspect-square object-cover image-hover">
+                </div>
+                <!-- Gallery Item 6 -->
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border-4 border-white shadow-lg fade-in-up hover-lift" style="transition-delay: 0.5s;">
+                    <img src="assets/dish-3.jpg" alt="Food Shot 2" class="w-full aspect-[4/3] object-cover image-hover">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="sm:px-6 lg:px-8 max-w-7xl mx-auto px-4 pb-8">
+        <div class="border-t border-rose-200 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-neutral-600 text-sm">© 2025 Alice Garden Restaurant.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
